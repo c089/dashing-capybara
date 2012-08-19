@@ -2,11 +2,12 @@ var buster = require("buster"),
     routesModule = require('../../../routes/data'),
     storage,
     routes,
-    fakeReq = {},
+    fakeReq,
     fakeRes;
 
 buster.testCase("data endpoints", {
     setUp: function () {
+      fakeReq = {};
         fakeRes = {
             status: this.stub().returns({
                 send: this.stub()
@@ -49,7 +50,10 @@ buster.testCase("data endpoints", {
         var id = 'foo',
             fakeValue = [{v:1}];
         storage.get = this.stub().returns(fakeValue);
+        fakeReq.params = { id : id };
+
         routes.get_by_id(fakeReq, fakeRes, id);
+
         expect(storage.get).toHaveBeenCalledOnce();
         expect(storage.get).toHaveBeenCalledWith(id);
         expect(fakeRes.status).toHaveBeenCalledWith(200);
