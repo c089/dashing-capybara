@@ -1,10 +1,15 @@
+var faye = require('faye')
+  , http = require('http')
+  ;
+
 exports.World = function World(callback) {
-    console.log('creating world');
     this.app = require('../../../app');
     this.app.storage.clear();
+
+    this.fayeClient = new faye.Client('http://localhost:3000/faye');
+
     this.request = function(method, url, body, done) {
         var world = this,
-            http = require('http'),
             headers,
             request;
 
@@ -36,9 +41,11 @@ exports.World = function World(callback) {
         }
         request.end();
     };
+
     this.get = function(url, done) {
         this.request('GET', url, undefined, done);
     };
+
     this.post = function(url, body, done) {
         this.request('POST', url, body, done);
     };

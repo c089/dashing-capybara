@@ -29,6 +29,12 @@ module.exports = function () {
         cb();
     });
 
+    this.Given(/^an existing data store with id (\d+) and data (.+)$/, function(id, data, cb) {
+        this.app.storage.create(id);
+        this.app.storage.set(id, data);
+        cb();
+    });
+
     this.When(/^I GET (.*)$/, function(url, callback) {
         this.get(url, callback);
     });

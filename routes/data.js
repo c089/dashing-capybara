@@ -1,6 +1,8 @@
 var uuid = require('node-uuid');
 module.exports = function(options) {
-    var storage = options.storage;
+    var storage = options.storage
+      , publish = options.publish
+      ;
     return {
         create: function (request, response) {
             var id = uuid.v1();
@@ -11,14 +13,18 @@ module.exports = function(options) {
         },
 
         post_id: function (request, response) {
-            var data = request.body;
-            storage.add(request.params.id, data);
+            var data = request.body
+              , id = request.params.id;
+            storage.add(id, data);
+            publish(id);
             response.status(200).send();
         },
 
         put_id: function (request, response) {
-            var data = request.body;
+            var data = request.body
+              , id = request.params.id;
             storage.set(request.params.id, data);
+            publish(id);
             response.status(200).send();
         },
 

@@ -1,10 +1,8 @@
 var express = require('express')
-  , routes = require('./routes')
   , http = require('http')
-  , path = require('path');
-
-exports.storage = require('./storage/memory');
-var dataController = require('./routes/data')({ storage: exports.storage});
+  , path = require('path')
+  , routes = require('./routes')
+  ;
 
 var app = express();
 
@@ -24,15 +22,27 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+// HTTPD
+var httpServer = http.createServer(app).listen(app.get('port'), function(){
+  console.log("Express server listening on port " + app.get('port'));
+});
+
+// Wiring
+exports.storage = require('./storage/memory');
+
+var faye_pubsub = require('./pubsub/pubsub_faye')({
+  storage: exports.storage,
+  httpServer: httpServer
+})
+
+var dataController = require('./routes/data')({
+  storage: exports.storage,
+  publish: faye_pubsub.publish
+});
+
+// Routing
 app.get('/', routes.index);
-
-
 app.post('/data',       dataController.create);
 app.post('/data/:id',   dataController.post_id);
 app.put ('/data/:id',   dataController.put_id);
 app.get ('/data/:id',   dataController.get_by_id);
-
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-});
