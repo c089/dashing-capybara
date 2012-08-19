@@ -1,4 +1,7 @@
 exports.World = function World(callback) {
+    console.log('creating world');
+    this.app = require('../../../app');
+    this.app.storage.clear();
     this.request = function(method, url, body, done) {
         var world = this,
             http = require('http'),

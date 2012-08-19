@@ -1,7 +1,6 @@
-var app = require('../../../app');
 require('chai').should();
 module.exports = function () {
-    this.World = require("../support/world.js").World;
+    this.World = require('../support/world.js').World;
 
     this.When(/^I POST to (.*) with empty body/, function(url, callback) {
         this.post(url, undefined, callback);
@@ -26,7 +25,7 @@ module.exports = function () {
     });
 
     this.Given(/^an existing data store with id (\d+)$/, function(id, cb) {
-        app.storage.create(id);
+        this.app.storage.create(id);
         cb();
     });
 
