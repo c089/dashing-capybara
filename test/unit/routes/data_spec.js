@@ -29,16 +29,18 @@ buster.testCase("data endpoints", {
 
     "put_id should replace the value on the store": function () {
         var id = 'foo';
+        fakeReq.params = { id : id };
         fakeReq.body = { value: 'thevalue' };
-        routes.put_id(fakeReq, fakeRes, id);
+        routes.put_id(fakeReq, fakeRes);
         expect(storage.set).toHaveBeenCalledOnce();
         expect(storage.set).toHaveBeenCalledWith(id, fakeReq.body);
     },
 
     "post_id should add a value on the store": function () {
         var id = 'foo';
+        fakeReq.params = { id : id };
         fakeReq.body = { value: 'thevalue' };
-        routes.post_id(fakeReq, fakeRes, id);
+        routes.post_id(fakeReq, fakeRes);
         expect(storage.add).toHaveBeenCalledOnce();
         expect(storage.add).toHaveBeenCalledWith(id, fakeReq.body);
     },
