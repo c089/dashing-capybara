@@ -6,9 +6,14 @@
  */
 var data = {};
 
+var exists = function (id) {
+    return data.hasOwnProperty(id);
+}
+exports.exists = exists;
+
 /** Create store with given id */
 exports.create = function (id) {
-    if (data.hasOwnProperty(id)) {
+    if (exists(id)) {
         throw new Error("id already exists");
     }
     data[id] = [];

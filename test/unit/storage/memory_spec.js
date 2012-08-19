@@ -7,7 +7,6 @@ buster.testCase("store management:", {
         storage.clear();
     },
 
-
     "a new store can be crated": function () {
         storage.create(id);
         expect(storage.get(id)).toBeDefined();
@@ -52,6 +51,16 @@ buster.testCase("store management:", {
         var createCallback = function () { storage.create(id) };
         expect(createCallback).not.toThrow();
         expect(createCallback).toThrow();
+    },
+
+    "can check if store does not exist": function () {
+        expect(storage.exists(id)).toBe(false);
+    },
+
+    "can check if store exists": function () {
+        storage.create(id);
+        expect(storage.exists(id)).toBe(true);
     }
+
 
 });
