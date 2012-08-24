@@ -14,6 +14,7 @@ Feature: Publish/Subscribe
 
   Scenario: Subscribing to a store with existing data
     Given an existing data store with id 1 and data {"x": 1}
+    And I am subscribed to my private channel
     When I subscribe to 1
     Then I receive a message containing {"x": 1}
 

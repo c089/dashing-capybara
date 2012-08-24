@@ -2,6 +2,19 @@ var util = require('../../../pubsub/util');
 module.exports = function () {
   this.World = require('../support/world.js').World;
 
+  this.Given(/^I am subscribed to my private channel$/, function(callback) {
+    var world = this;
+    this.fayeClient.connect(function () {
+      var privateChannel = util.privateChannelFor(world.fayeClient.getClientId());
+      world.privateSubscription = world.fayeClient.subscribe(privateChannel, function (m) {
+          world.messages.push(m);
+      });
+      world.privateSubscription.callback(function () {
+        callback();
+      });
+    });
+  });
+
   this.When(/^I subscribe to (.+)$/, function(id, done) {
     var world = this;
     world.subscription = this.fayeClient.subscribe(util.storeChannelFor(id), function (m) {

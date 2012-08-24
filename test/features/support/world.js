@@ -54,16 +54,5 @@ exports.World = function World(callback) {
     };
 
 
-    var world = this;
-    // Wait for faye to connect so we can get our clientId
-    this.fayeClient.connect(function () {
-        // Subscribe to our private channel
-        var privateChannel = util.privateChannelFor(world.fayeClient.getClientId());
-        world.privateSubscription = world.fayeClient.subscribe(privateChannel, function (m) {
-            world.messages.push(m);
-        });
-        world.privateSubscription.callback(function () {
-          callback();
-        });
-    });
+    callback();
 };
