@@ -2,4 +2,30 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to #{title}! You can add data to this page by pushing strings to the "index" store:
+    div
+      code curl -X POST --header 'Content-Type: application/json' http://localhost:3000/data/index -d '{"value": "hello"}
+
+    ul#exampleData
+
+  script
+    var client = new Faye.Client('http://localhost:3000/faye')
+      , appendValue = function(value) {
+          var li = document.createElement('li');
+          li.appendChild(document.createTextNode(value));
+          document.getElementById('exampleData').appendChild(li);
+        };
+
+    client.connect(function () {
+      // Connect to private channel to get initial data
+      client.subscribe('/private/' + client.getClientId(), function (data) {
+        for (var i=0; i < data.length; i+=1) {
+          appendValue(data[i].value);
+        }
+      });
+
+      // Connect to channel to get updates
+      client.subscribe('/data/index', function(data) {
+        appendValue(data[data.length-1].value);
+      });
+    });

@@ -40,6 +40,12 @@ var dataController = require('./routes/data')({
   publish: faye_pubsub.publish
 });
 
+// Set up example data store for the index page
+if (!exports.storage.exists('index')) {
+    exports.storage.create('index');
+    exports.storage.add('index', {value: 'hello world'});
+}
+
 // Routing
 app.get('/', routes.index);
 app.post('/data',       dataController.create);
