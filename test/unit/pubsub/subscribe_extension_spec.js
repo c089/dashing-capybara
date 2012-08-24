@@ -11,6 +11,7 @@ var buster = require('buster')
   extension = require('../../../pubsub/subscribe_extension')({
     storage: storageStub
   });
+  util = require('../../../pubsub/util');
 
 buster.testCase("subscribe extension", {
   'it should pass through messages on non-subscribe channel': function () {
@@ -29,7 +30,7 @@ buster.testCase("subscribe extension", {
         , unknownChannel = 'unknown'
         , message = {
             channel: '/meta/subscribe',
-            subscription: '/'+unknownChannel
+            subscription: util.storeChannelFor(unknownChannel)
           };
 
       extension.incoming(message, callback);
@@ -43,7 +44,7 @@ buster.testCase("subscribe extension", {
       var callback = this.spy()
         , message = {
             channel: '/meta/subscribe',
-            subscription: '/'+existingStoreName
+            subscription: util.storeChannelFor(existingStoreName)
           };
 
       extension.incoming(message, callback);
@@ -52,5 +53,19 @@ buster.testCase("subscribe extension", {
       expect(callback).toHaveBeenCalledWith(message);
       refute.defined(message.error);
   },
+
+  'it should pass through subscription for non-data channels': function () {
+      var callback = this.spy()
+        , message = {
+           channel: '/meta/subscribe',
+           subscription: util.privateChannelFor('123')
+        }
+
+      extension.incoming(message, callback);
+
+      expect(callback).toHaveBeenCalledOnce();
+      expect(callback).toHaveBeenCalledWith(message);
+      refute.defined(message.error);
+  }
 });
 

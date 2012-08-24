@@ -1,10 +1,10 @@
+var util = require('../../../pubsub/util');
 module.exports = function () {
   this.World = require('../support/world.js').World;
 
   this.When(/^I subscribe to (.+)$/, function(id, done) {
     var world = this;
-    world.messages = [];
-    world.subscription = this.fayeClient.subscribe('/' + id, function (m) {
+    world.subscription = this.fayeClient.subscribe(util.storeChannelFor(id), function (m) {
       world.messages.push(m);
     });
     world.subscription.callback(function () {

@@ -31,7 +31,7 @@ module.exports = function () {
 
     this.Given(/^an existing data store with id (\d+) and data (.+)$/, function(id, data, cb) {
         this.app.storage.create(id);
-        this.app.storage.set(id, data);
+        this.app.storage.set(id, JSON.parse(data));
         cb();
     });
 

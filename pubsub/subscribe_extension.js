@@ -1,3 +1,9 @@
+var util = require('./util')
+  _  = require('underscore');
+  _.str = require('underscore.string')
+;
+_.mixin(_.str.exports());
+
 module.exports = function(options) {
   var storage = options.storage;
   return {
@@ -6,7 +12,12 @@ module.exports = function(options) {
       if (message.channel !== '/meta/subscribe') {
         return callback(message);
       }
-      var storeName = message.subscription.substring(1);
+
+      if (!(_(message.subscription).startsWith(util.dataEndpoint))) {
+          return callback(message);
+      }
+
+      var storeName = util.storeNameFromChannel(message.subscription);
       if (!storage.exists(storeName)) {
         message.error = 'Unknown store: ' + storeName + '.';
         return callback(message);

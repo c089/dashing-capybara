@@ -1,5 +1,6 @@
 var faye = require('faye')
   , http = require('http')
+  , util = require('../../../pubsub/util')
   ;
 
 exports.World = function World(callback) {
@@ -7,6 +8,8 @@ exports.World = function World(callback) {
     this.app.storage.clear();
 
     this.fayeClient = new faye.Client('http://localhost:3000/faye');
+
+    this.messages = [];
 
     this.request = function(method, url, body, done) {
         var world = this,
@@ -50,5 +53,17 @@ exports.World = function World(callback) {
         this.request('POST', url, body, done);
     };
 
-    callback();
+
+    var world = this;
+    // Wait for faye to connect so we can get our clientId
+    this.fayeClient.connect(function () {
+        // Subscribe to our private channel
+        var privateChannel = util.privateChannelFor(world.fayeClient.getClientId());
+        world.privateSubscription = world.fayeClient.subscribe(privateChannel, function (m) {
+            world.messages.push(m);
+        });
+        world.privateSubscription.callback(function () {
+          callback();
+        });
+    });
 };
