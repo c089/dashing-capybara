@@ -24,9 +24,9 @@ exports.clear = function (id) {
   data = {};
 };
 
-/** Set a data point as the value for a store, replacing all others */
+/** Set a list of data points as the value for a store, replacing all others */
 exports.set = function (id, value) {
-  data[id] = [value];
+  data[id] = value;
 };
 
 /** Adds a data point to a store. */

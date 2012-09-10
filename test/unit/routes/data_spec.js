@@ -35,7 +35,7 @@ buster.testCase("data endpoints", {
     "put_id should replace the value on the store": function () {
         var id = 'foo';
         fakeReq.params = { id : id };
-        fakeReq.body = { value: 'thevalue' };
+        fakeReq.body = [{ value: 'thevalue' }];
         routes.put_id(fakeReq, fakeRes);
         expect(storage.set).toHaveBeenCalledOnce();
         expect(storage.set).toHaveBeenCalledWith(id, fakeReq.body);
@@ -43,7 +43,7 @@ buster.testCase("data endpoints", {
 
     "put_id should cause a pubsub update": function () {
         var id = 'foo'
-          , value = { value: 'thevalue' }
+          , value = [{ value: 'thevalue' }]
           ;
         fakeReq.params = { id : id };
         fakeReq.body = value;

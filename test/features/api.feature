@@ -22,4 +22,15 @@ Feature: RESTful data API
         When I GET /data/1
         Then the status should be 200
         And the result should be a single data point
-        And the first data point should contain {"value": "foo"}
+        And the result should contain {"value": "foo"}
+
+    Scenario: All values can be replaced for a data store
+        Given an existing data store with id 1 and data [{"value": "old"}]
+        When I PUT to /data/1 with body [{"value": "new1"}, {"value": "new2"}]
+        Then the status should be 200
+        When I GET /data/1
+        Then the status should be 200
+        And the result should have size 2
+        And the result should contain {"value": "new1"}
+        And the result should contain {"value": "new2"}
+        And the result should not contain {"value": "old"}

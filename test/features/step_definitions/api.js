@@ -8,7 +8,11 @@ module.exports = function () {
 
   this.When(/^I POST to (.*) with body (.*)/, function(url, body, callback) {
     this.post(url, body, callback);
-    });
+  });
+
+  this.When(/^I PUT to (.*) with body (.*)$/, function(url, body,  callback) {
+    this.put(url, body, callback);
+  });
 
   this.Then(/^the status should be (\d+)$/, function(expectedStatus, done) {
     this.httpResponse.statusCode.should.equal(parseInt(expectedStatus));
@@ -45,11 +49,22 @@ module.exports = function () {
     callback();
   });
 
-  this.Then(/^the first data point should contain (.*)$/, function(x, cb) {
-    var result = JSON.parse(this.responseData)
-      , expected = JSON.parse(x);
-    result[0].should.deep.equal(expected);
+  this.Then(/^the result should have size (\d+)$/, function(size, cb) {
+    JSON.parse(this.responseData).should.have.length(size);
     cb();
   });
+
+  this.Then(/^the result should contain (.*)$/, function(expected, cb) {
+    var expectedObject = JSON.parse(expected);
+    this.responseContainsObject(expectedObject).should.be.true;
+    cb();
+  });
+
+  this.Then(/^the result should not contain (.*)$/, function(unexpected, cb) {
+    var unexpectedObject = JSON.parse(unexpected);
+    this.responseContainsObject(unexpectedObject).should.be.false;
+    cb();
+  });
+
 
 };

@@ -13,11 +13,10 @@ buster.testCase("store management:", {
     },
 
     "values can be get and set": function () {
-        var value = 'value';
+        var value = [{value: 'value'}];
         storage.create(id);
         storage.set(id, value);
-        expect(storage.get(id).length).toBe(1);
-        expect(storage.get(id)).toContain(value);
+        expect(storage.get(id)).toBe(value);
     },
 
     "set overwrites the previous values": function () {

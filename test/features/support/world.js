@@ -53,6 +53,15 @@ exports.World = function World(callback) {
         this.request('POST', url, body, done);
     };
 
+    this.put = function(url, body, done) {
+        this.request('PUT', url, body, done);
+    };
+
+    this.responseContainsObject = function (expectedObject) {
+        return _.any(JSON.parse(this.responseData), function (value) {
+            return _.isEqual(expectedObject, value);
+        });
+    }
 
     callback();
 };
