@@ -28,11 +28,12 @@ Dashing Capybara is implemented as a full-stack JavaScript application based on
 
 Alpha: The implementation is incomplete and the APIs will change.
 
-Missing bits:
+### Roadmap
 
-* validate incoming data
-* add timestamps to incoming data
+* validate incoming data (well formatted, maximum size)
+* add timestamps to incoming data (if not included)
 * persistent storage engine based on redis
+* retention rules (clean old values based on timestamp or maximum entries)
 * client library to hide faye implementation details
 * fancy example application
 * authentication/authorization
