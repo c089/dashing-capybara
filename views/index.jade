@@ -4,7 +4,11 @@ block content
   h1= title
   p Welcome to #{title}! You can add data to this page by pushing strings to the "index" store:
     div
-      code curl -X POST --header 'Content-Type: application/json' http://localhost:3000/data/index -d '{"value": "hello"}
+      code
+        | curl -X POST
+        | --header 'Content-Type: application/json'
+        | -d '{"value": "hello"}'
+        | http://localhost:3000/data/index
 
     ul#exampleData
 
