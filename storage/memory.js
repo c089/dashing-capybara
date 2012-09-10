@@ -7,35 +7,35 @@
 var data = {};
 
 var exists = function (id) {
-    return data.hasOwnProperty(id);
+  return data.hasOwnProperty(id);
 }
 exports.exists = exists;
 
 /** Create store with given id */
 exports.create = function (id) {
-    if (exists(id)) {
-        throw new Error("id already exists");
-    }
-    data[id] = [];
+  if (exists(id)) {
+    throw new Error("id already exists");
+  }
+  data[id] = [];
 };
 
 /** Clear all data from the storage */
 exports.clear = function (id) {
-    data = {};
+  data = {};
 };
 
 /** Set a data point as the value for a store, replacing all others */
 exports.set = function (id, value) {
-    data[id] = [value];
+  data[id] = [value];
 };
 
 /** Adds a data point to a store. */
 exports.add = function (id, value) {
-    data[id].push(value);
+  data[id].push(value);
 }
 
 /** Get values for a store */
 exports.get = function(id) {
-    return data[id];
+  return data[id];
 };
 
