@@ -38,6 +38,10 @@ Alpha: The implementation is incomplete and the APIs will change.
 * fancy example application
 * authentication/authorization
 
+### Cleanups
+* consistency: 2 spaces indentation
+* consistency: use comma-first var statements
+
 ## Inspiration / Competition / Alternatives
 
 * [Ducksboard][ducksboard] and [Geckoboard][geckoboard] are proprietary turnkey
