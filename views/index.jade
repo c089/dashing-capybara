@@ -19,26 +19,36 @@ block content
         | -d '[{"value": "hello"}, {"value": "world"}]'
         | http://localhost:3000/data/index
 
-  ul#exampleData
+  div#exampleData
+    ul#exampleDataList
 
   script
     var client = new Faye.Client('http://localhost:3000/faye')
       , appendValue = function(value) {
           var li = document.createElement('li');
           li.appendChild(document.createTextNode(value));
-          document.getElementById('exampleData').appendChild(li);
+          document.getElementById('exampleDataList').appendChild(li);
         };
+
+    var updateValues = function(data) {
+        var div = document.getElementById('exampleData')
+          , list = document.getElementById('exampleDataList')
+          , newList = document.createElement('ul');
+        newList.id = 'exampleDataList';
+        div.replaceChild(newList, list);
+        for (var i=0; i < data.length; i+=1) {
+          appendValue(data[i].value);
+        }
+    };
 
     client.connect(function () {
       // Connect to private channel to get initial data
       client.subscribe('/private/' + client.getClientId(), function (data) {
-        for (var i=0; i < data.length; i+=1) {
-          appendValue(data[i].value);
-        }
+        updateValues(data);
       });
 
       // Connect to channel to get updates
       client.subscribe('/data/index', function(data) {
-        appendValue(data[data.length-1].value);
+        updateValues(data);
       });
     });
