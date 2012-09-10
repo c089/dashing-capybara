@@ -9,7 +9,7 @@ block content
         | curl -X POST
         | --header 'Content-Type: application/json'
         | -d '{"value": "hello"}'
-        | http://localhost:3000/data/index
+        | #{baseUrl}/index
 
   p Or replace all values with a PUT:
     div
@@ -17,13 +17,13 @@ block content
         | curl -X PUT
         | --header 'Content-Type: application/json'
         | -d '[{"value": "hello"}, {"value": "world"}]'
-        | http://localhost:3000/data/index
+        | #{baseUrl}/data/index
 
   div#exampleData
     ul#exampleDataList
 
   script
-    var client = new Faye.Client('http://localhost:3000/faye')
+    var client = new Faye.Client('#{baseUrl}/faye')
       , appendValue = function(value) {
           var li = document.createElement('li');
           li.appendChild(document.createTextNode(value));
