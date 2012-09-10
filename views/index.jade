@@ -1,8 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}! You can add data to this page by pushing strings to the "index" store:
+  h1 Welcome to #{title}
+
+  p You can add data to this page by POSTing values to the "index" store:
     div
       code
         | curl -X POST
@@ -10,7 +11,15 @@ block content
         | -d '{"value": "hello"}'
         | http://localhost:3000/data/index
 
-    ul#exampleData
+  p Or replace all values with a PUT:
+    div
+      code
+        | curl -X PUT
+        | --header 'Content-Type: application/json'
+        | -d '[{"value": "hello"}, {"value": "world"}]'
+        | http://localhost:3000/data/index
+
+  ul#exampleData
 
   script
     var client = new Faye.Client('http://localhost:3000/faye')
