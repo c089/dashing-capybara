@@ -1,5 +1,7 @@
 # Dashing Capybara
 
+[![Build Status][travis.png]][travis]
+
 * _dashing_: spirited, audacious and full of high spirits
 * _capybara_: a rodent that [looks like Rafel Nadal][capys]
 
@@ -65,3 +67,5 @@ Alpha: The implementation is incomplete and the APIs will change.
 [geckoboard]: http://www.geckoboard.com/
 [graphene]: https://github.com/jondot/graphene
 [jslate]: http://jslate.com/
+[travis.png]: https://secure.travis-ci.org/c089/dashing-capybara.png
+[travis]: http://travis-ci.org/c089/dashing-capybara
