@@ -9,7 +9,7 @@ block content
         | curl -X POST
         | --header 'Content-Type: application/json'
         | -d '{"value": "hello"}'
-        | #{baseUrl}/index
+        | #{exampleApiUrl}
 
   p Or replace all values with a PUT:
     div
@@ -17,7 +17,7 @@ block content
         | curl -X PUT
         | --header 'Content-Type: application/json'
         | -d '[{"value": "hello"}, {"value": "world"}]'
-        | #{baseUrl}/data/index
+        | #{exampleApiUrl}
 
   div#exampleData
     ul#exampleDataList

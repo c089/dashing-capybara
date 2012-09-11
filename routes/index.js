@@ -1,6 +1,8 @@
 exports.index = function(req, res){
+  var baseUrl = 'http://' + req.header('host');
   res.render('index', {
     title: 'Dashing Capybara',
-    baseUrl: 'http://' + req.header('host')
+    baseUrl: baseUrl,
+    exampleApiUrl: baseUrl + '/data/index'
   });
 };
