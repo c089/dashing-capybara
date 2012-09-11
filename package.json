@@ -21,5 +21,8 @@
     "cucumber": "0.2.x",
     "buster": "0.6.x",
     "chai": "1.2.x"
+  },
+  "scripts": {
+    "test": "buster-test && cucumber.js test/features"
   }
 }
