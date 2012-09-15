@@ -43,6 +43,7 @@ Alpha: The implementation is incomplete and the APIs will change.
 ### Cleanups
 * consistency: 2 spaces indentation
 * consistency: use comma-first var statements
+* consistency: use camel case instead of underscores for method names
 
 ## Inspiration / Competition / Alternatives
 
