@@ -54,15 +54,34 @@ module.exports = function () {
     cb();
   });
 
-  this.Then(/^the result should contain (.*)$/, function(expected, cb) {
+  this.Then(/^the first value should contain a timestamp$/, function(cb) {
+    var result = JSON.parse(this.responseData)
+      , timeString;
+    result[0].should.include.keys('timestamp');
+    timeString = result[0].timestamp;
+    new Date(timeString).toJSON().should.equal(timeString);
+    cb();
+  });
+
+  this.Then(/^the result should contain ({.*)$/, function(expected, cb) {
     var expectedObject = JSON.parse(expected);
     this.responseContainsObject(expectedObject).should.be.true;
     cb();
   });
 
-  this.Then(/^the result should not contain (.*)$/, function(unexpected, cb) {
+  this.Then(/^the result should not contain ({.*)$/, function(unexpected, cb) {
     var unexpectedObject = JSON.parse(unexpected);
     this.responseContainsObject(unexpectedObject).should.be.false;
+    cb();
+  });
+
+  this.Then(/^the result should contain value "([^"]*)"$/, function(value, cb) {
+    this.responseContainsValue(value).should.be.true;
+    cb()
+  });
+
+  this.Then(/^the result should not contain value "([^"]*)"$/, function(value, cb) {
+    this.responseContainsValue(value).should.be.false;
     cb();
   });
 

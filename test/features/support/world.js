@@ -63,5 +63,11 @@ exports.World = function World(callback) {
         });
     }
 
+    this.responseContainsValue = function (expectedValue) {
+      return _.any(JSON.parse(this.responseData), function (item) {
+        return item.value === expectedValue;
+      });
+    };
+
     callback();
 };

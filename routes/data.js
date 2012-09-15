@@ -1,7 +1,12 @@
-var uuid = require('node-uuid');
+var uuid = require('node-uuid')
+  , routes_util = require('./util');
+
 module.exports = function(options) {
   var storage = options.storage
     , publish = options.publish
+    , addItem = function (id, item) {
+        storage.add(id, routes_util.checkOrAddTimestamp(item));
+      }
     ;
   return {
     create: function (request, response) {
@@ -15,7 +20,7 @@ module.exports = function(options) {
     post_id: function (request, response) {
       var data = request.body
         , id = request.params.id;
-      storage.add(id, data);
+      addItem(id, data);
       publish(id);
       response.status(200).send();
     },
@@ -23,7 +28,10 @@ module.exports = function(options) {
     put_id: function (request, response) {
       var data = request.body
         , id = request.params.id;
-      storage.set(request.params.id, data);
+      storage.set(request.params.id, []);
+      _.each(data, function (value) {
+        addItem(id, value);
+      });
       publish(id);
       response.status(200).send();
     },

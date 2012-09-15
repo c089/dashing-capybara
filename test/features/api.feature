@@ -22,7 +22,7 @@ Feature: RESTful data API
     When I GET /data/1
     Then the status should be 200
     And the result should be a single data point
-    And the result should contain {"value": "foo"}
+    And the result should contain value "foo"
 
   Scenario: All values can be replaced for a data store
     Given an existing data store with id 1 and data [{"value": "old"}]
@@ -31,12 +31,25 @@ Feature: RESTful data API
     When I GET /data/1
     Then the status should be 200
     And the result should have size 2
-    And the result should contain {"value": "new1"}
-    And the result should contain {"value": "new2"}
-    And the result should not contain {"value": "old"}
+    And the result should contain value "new1"
+    And the result should contain value "new2"
+    And the result should not contain value "old"
+
+  Scenario: When no timestamp is included, it is set to the current time
+    Given an existing data store with id 1
+    When I POST to /data/1 with body {"value": "foo"}
+    When I GET /data/1
+    Then the first value should contain a timestamp
 
   Scenario: A timestamp can be included when adding data
     Given an existing data store with id 1
-    When I POST to /data/1 with body {"value": "foo", "timestamp": "1347720953"}
+    When I POST to /data/1 with body {"value": "foo", "timestamp": "2012-09-15T15:46:20.889Z"}
     When I GET /data/1
-    Then the result should contain {"value": "foo", "timestamp": "1347720953"}
+    Then the first value should contain a timestamp
+    And the result should contain {"value": "foo", "timestamp": "2012-09-15T15:46:20.889Z"}
+
+  Scenario: Timestamps will always be returned in ISO-Format
+    Given an existing data store with id 1
+    When I POST to /data/1 with body {"value": 1, "timestamp": "Sep 15, 2012 14:30"}
+    And I GET /data/1
+    Then the result should contain {"value": 1, "timestamp": "2012-09-15T12:30:00.000Z"}

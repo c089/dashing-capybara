@@ -38,7 +38,9 @@ buster.testCase("data endpoints", {
     fakeReq.body = [{ value: 'thevalue' }];
     routes.put_id(fakeReq, fakeRes);
     expect(storage.set).toHaveBeenCalledOnce();
-    expect(storage.set).toHaveBeenCalledWith(id, fakeReq.body);
+    expect(storage.set).toHaveBeenCalledWith(id, []);
+    expect(storage.add).toHaveBeenCalledOnce();
+    expect(storage.add).toHaveBeenCalledWith(id, fakeReq.body[0]);
   },
 
   "put_id should cause a pubsub update": function () {
@@ -85,5 +87,4 @@ buster.testCase("data endpoints", {
     expect(fakeRes.status).toHaveBeenCalledWith(200);
     expect(fakeRes.status().send).toHaveBeenCalledWith(fakeValue);
   }
-
 });

@@ -33,7 +33,6 @@ Alpha: The implementation is incomplete and the APIs will change.
 ### Roadmap
 
 * validate incoming data (well formatted, maximum size)
-* add timestamps to incoming data (if not included)
 * persistent storage engine based on redis
 * retention rules (clean old values based on timestamp or maximum entries)
 * client library to hide faye implementation details
