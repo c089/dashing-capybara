@@ -20,7 +20,7 @@ exports.create = function (id) {
 };
 
 /** Clear all data from the storage */
-exports.clear = function (id) {
+exports.clear = function () {
   data = {};
 };
 
