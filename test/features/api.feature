@@ -34,3 +34,9 @@ Feature: RESTful data API
     And the result should contain {"value": "new1"}
     And the result should contain {"value": "new2"}
     And the result should not contain {"value": "old"}
+
+  Scenario: A timestamp can be included when adding data
+    Given an existing data store with id 1
+    When I POST to /data/1 with body {"value": "foo", "timestamp": "1347720953"}
+    When I GET /data/1
+    Then the result should contain {"value": "foo", "timestamp": "1347720953"}
