@@ -50,6 +50,6 @@ Feature: RESTful data API
 
   Scenario: Timestamps will always be returned in ISO-Format
     Given an existing data store with id 1
-    When I POST to /data/1 with body {"value": 1, "timestamp": "Sep 15, 2012 14:30"}
+    When I POST to /data/1 with body {"value": 1, "timestamp": 1347728775000}
     And I GET /data/1
-    Then the result should contain {"value": 1, "timestamp": "2012-09-15T12:30:00.000Z"}
+    Then the result should contain {"value": 1, "timestamp": "2012-09-15T17:06:15.000Z"}
