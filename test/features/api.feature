@@ -1,7 +1,7 @@
 Feature: RESTful data API
     As a user who has interesting data
     I want to use a simple RESTful API
-    to get data into te system
+    to get data into the system
 
     The API uses the HTTP verbs POST, GET, PUT and DELETE on the data endpoint
     like this:
