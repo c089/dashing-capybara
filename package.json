@@ -1,10 +1,29 @@
 {
   "name": "dashing-capybara",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app"
+  "version": "0.0.1-git",
+
+  "description": "framework for building realtime dashboards",
+  "keywords": [ "dashboard", "realtime", "pubsub" ],
+
+  "author": "Christoph Neuroth <christoph.neuroth@gmail.com>",
+  "contributors": [],
+
+  "homepage": "https://github.com/c089/dashing-capybara",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/c089/dashing-capybara.git"
   },
+  "bugs": "https://github.com/c089/dashing-capybara/issues",
+
+  "licenses": [
+    { "type": "MIT", "url": "http://opensource.org/licenses/MIT" }
+  ],
+
+  "scripts": {
+    "start": "node app",
+    "test": "buster-test && cucumber.js test/features"
+  },
+
   "engines": {
     "node": "0.8.x",
     "npm":  "1.1.x"
@@ -21,8 +40,5 @@
     "cucumber": "0.2.x",
     "buster": "0.6.x",
     "chai": "1.2.x"
-  },
-  "scripts": {
-    "test": "buster-test && cucumber.js test/features"
   }
 }
