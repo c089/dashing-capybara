@@ -63,3 +63,8 @@ Feature: RESTful data API
     When I POST to /data/1 with body {"value": 1, "timestamp": 1347728775000}
     And I GET /data/1
     Then the result should contain {"value": 1, "timestamp": "2012-09-15T17:06:15.000Z"}
+
+  Scenario: Providing an invalid timestamp will result in a error 400
+    Given an existing data store with id 1
+    When I POST to /data/1 with body {"value": 1, "timestamp": "X"}
+    Then the status should be 400
