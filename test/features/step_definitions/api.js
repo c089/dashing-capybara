@@ -75,13 +75,13 @@ module.exports = function () {
     cb();
   });
 
-  this.Then(/^the result should contain value "([^"]*)"$/, function(value, cb) {
-    this.responseContainsValue(value).should.be.true;
+  this.Then(/^the result should contain value (.*)$/, function(value, cb) {
+    this.responseContainsValue(JSON.parse(value)).should.be.true;
     cb()
   });
 
-  this.Then(/^the result should not contain value "([^"]*)"$/, function(value, cb) {
-    this.responseContainsValue(value).should.be.false;
+  this.Then(/^the result should not contain value (.*)$/, function(value, cb) {
+    this.responseContainsValue(JSON.parse(value)).should.be.false;
     cb();
   });
 
