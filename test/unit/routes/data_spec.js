@@ -63,6 +63,19 @@ buster.testCase("data endpoints", {
     expect(storage.add).toHaveBeenCalledWith(id, fakeReq.body);
   },
 
+  "post_id should add multiple values to the store": function () {
+    var id = 'foo'
+      , firstValue = {value: 'a'}
+      , secondValue = {value: 'b'}
+    ;
+    fakeReq.params = { id : id };
+    fakeReq.body = [firstValue, secondValue];
+    routes.post_id(fakeReq, fakeRes);
+    expect(storage.add).toHaveBeenCalledTwice();
+    expect(storage.add).toHaveBeenCalledWith(id, firstValue);
+    expect(storage.add).toHaveBeenCalledWith(id, secondValue);
+  },
+
   "post_id should cause a pubsub update": function () {
     var id = 'foo'
       , value = { value: 'thevalue' }

@@ -15,7 +15,7 @@ Feature: RESTful data API
     Then the status should be 201
     And the result should include an id
 
-  Scenario: A single value can be set for a data store
+  Scenario: A single value can be added to a data store
     Given an existing data store with id 1
     When I POST to /data/1 with body {"value": "foo"}
     Then the status should be 200
@@ -23,6 +23,16 @@ Feature: RESTful data API
     Then the status should be 200
     And the result should be a single data point
     And the result should contain value "foo"
+
+  Scenario: Multiple values can be added to a data store
+    Given an existing data store with id 1
+    When I POST to /data/1 with body [{"value": 1}, {"value": 2}]
+    Then the status should be 200
+    When I GET /data/1
+    Then the status should be 200
+    And the result should have size 2
+    And the result should contain value 1
+    And the result should contain value 2
 
   Scenario: All values can be replaced for a data store
     Given an existing data store with id 1 and data [{"value": "old"}]

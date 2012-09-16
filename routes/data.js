@@ -1,4 +1,5 @@
-var uuid = require('node-uuid')
+var _           = require('underscore')
+  , uuid        = require('node-uuid')
   , routes_util = require('./util');
 
 module.exports = function(options) {
@@ -6,6 +7,11 @@ module.exports = function(options) {
     , publish = options.publish
     , addItem = function (id, item) {
         storage.add(id, routes_util.checkOrAddTimestamp(item));
+      }
+    , addItems = function (id, items) {
+        _.each(items, function (value) {
+          addItem(id, value);
+        });
       }
     ;
   return {
@@ -20,7 +26,12 @@ module.exports = function(options) {
     post_id: function (request, response) {
       var data = request.body
         , id = request.params.id;
-      addItem(id, data);
+      if (_.isArray(data)) {
+        addItems(id, data);
+      }
+      else {
+        addItem(id, data);
+      }
       publish(id);
       response.status(200).send();
     },
@@ -29,9 +40,7 @@ module.exports = function(options) {
       var data = request.body
         , id = request.params.id;
       storage.set(request.params.id, []);
-      _.each(data, function (value) {
-        addItem(id, value);
-      });
+      addItems(id, data);
       publish(id);
       response.status(200).send();
     },
