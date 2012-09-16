@@ -1,12 +1,11 @@
 var _           = require('underscore')
   , uuid        = require('node-uuid')
-  , routes_util = require('./util');
 
 module.exports = function(options) {
   var storage = options.storage
     , publish = options.publish
     , addItem = function (id, item) {
-        storage.add(id, routes_util.checkOrAddTimestamp(item));
+        storage.add(id, item);
       }
     , addItems = function (id, items) {
         _.each(items, function (value) {

@@ -50,6 +50,7 @@ if (!exports.storage.exists('index')) {
 // Routing
 app.get ('/', routes.index);
 app.all ('/data/*',     dataMiddleware.convertSingleObjectToArray);
+app.all ('/data/*',     dataMiddleware.addMissingTimestamps);
 app.post('/data',       dataController.create);
 app.post('/data/:id',   dataController.post_id);
 app.put ('/data/:id',   dataController.put_id);
