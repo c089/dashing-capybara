@@ -68,3 +68,8 @@ Feature: RESTful data API
     Given an existing data store with id 1
     When I POST to /data/1 with body {"value": 1, "timestamp": "X"}
     Then the status should be 400
+
+  Scenario: Omitting the value will result in error 400
+    Given an existing data store with id 1
+    When I POST to /data/1 with body {"timestamp": "2012-09-15T17:06:15.000Z"}
+    Then the status should be 400

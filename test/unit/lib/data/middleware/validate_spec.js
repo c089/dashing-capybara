@@ -29,5 +29,15 @@ buster.testCase("data format validation middleware", {
     validate(request, response, this.spy());
     expect(response.json).toHaveBeenCalledOnce();
     expect(response.json).toHaveBeenCalledWith(400, expectedError);
+  },
+
+  "should return 400 for missing value": function () {
+    var expectedError = {
+      error: 'Missing "value" in data point.'
+    };
+    request.body = [{timestamp: 1}];
+    validate(request, response, this.spy());
+    expect(response.json).toHaveBeenCalledOnce();
+    expect(response.json).toHaveBeenCalledWith(400, expectedError);
   }
 });
