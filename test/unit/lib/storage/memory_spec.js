@@ -1,5 +1,5 @@
 var buster = require("buster"),
-    storage = require('../../../storage/memory'),
+    storage = require('../../../../lib/storage/memory'),
     id = 'id';
 
 buster.testCase("store management:", {

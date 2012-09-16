@@ -29,7 +29,7 @@ var httpServer = http.createServer(app).listen(app.get('port'), function(){
 });
 
 // Wiring
-exports.storage = require('./storage/memory');
+exports.storage = require('./lib/storage/memory');
 
 var faye_pubsub = require('./pubsub/pubsub_faye')({
   storage: exports.storage,
