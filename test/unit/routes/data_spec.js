@@ -54,15 +54,6 @@ buster.testCase("data endpoints", {
     expect(publishSpy).toHaveBeenCalledWith(id);
   },
 
-  "post_id should add a value on the store": function () {
-    var id = 'foo';
-    fakeReq.params = { id : id };
-    fakeReq.body = { value: 'thevalue' };
-    routes.post_id(fakeReq, fakeRes);
-    expect(storage.add).toHaveBeenCalledOnce();
-    expect(storage.add).toHaveBeenCalledWith(id, fakeReq.body);
-  },
-
   "post_id should add multiple values to the store": function () {
     var id = 'foo'
       , firstValue = {value: 'a'}

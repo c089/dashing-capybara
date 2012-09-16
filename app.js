@@ -2,6 +2,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , routes = require('./routes')
+  , dataMiddleware = require('./lib/data/middleware');
   ;
 
 var app = express();
@@ -47,7 +48,8 @@ if (!exports.storage.exists('index')) {
 }
 
 // Routing
-app.get('/', routes.index);
+app.get ('/', routes.index);
+app.all ('/data/*',     dataMiddleware.convertSingleObjectToArray);
 app.post('/data',       dataController.create);
 app.post('/data/:id',   dataController.post_id);
 app.put ('/data/:id',   dataController.put_id);

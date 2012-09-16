@@ -26,12 +26,7 @@ module.exports = function(options) {
     post_id: function (request, response) {
       var data = request.body
         , id = request.params.id;
-      if (_.isArray(data)) {
-        addItems(id, data);
-      }
-      else {
-        addItem(id, data);
-      }
+      addItems(id, data);
       publish(id);
       response.status(200).send();
     },
