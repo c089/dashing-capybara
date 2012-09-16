@@ -2,7 +2,6 @@ var buster = require("buster")
   , validate = require('../../../../../lib/data/middleware/validate').validate
   , request
   , response
-  , nextCallback
   ;
 
 buster.testCase("data format validation middleware", {
@@ -11,14 +10,12 @@ buster.testCase("data format validation middleware", {
     response = {
       json: this.spy(),
     };
-    nextCallback = this.spy();
   },
 
   "should proceed for valid input": function () {
     request.body = [{value: "v", timestamp: 1}];
-    validate(request, response, nextCallback);
-    // checking call for next() with calledWith(undefined)
-    expect(nextCallback).toHaveBeenCalledOnceWith(undefined);
+    validate(request, response);
+    expect(response.json).not.toHaveBeenCalled()
   },
 
   "should return 400 for invalid timestamp": function () {
