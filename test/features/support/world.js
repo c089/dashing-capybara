@@ -1,6 +1,6 @@
 var faye = require('faye')
   , http = require('http')
-  , util = require('../../../pubsub/util')
+  , util = require('../../../lib/pubsub/util')
   ;
 
 exports.World = function World(callback) {

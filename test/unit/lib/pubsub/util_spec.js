@@ -1,5 +1,5 @@
 var buster = require('buster')
-  , util = require('../../../pubsub/util');
+  , util = require('../../../../lib/pubsub/util');
 
 buster.testCase('utils', {
   'it should properly format the store endpoint': function () {

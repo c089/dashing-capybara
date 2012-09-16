@@ -8,10 +8,10 @@ var buster = require('buster')
       return id === existingStoreName
     }
   };
-  extension = require('../../../pubsub/subscribe_extension')({
+  extension = require('../../../../lib/pubsub/subscribe_extension')({
     storage: storageStub
   });
-  util = require('../../../pubsub/util');
+  util = require('../../../../lib/pubsub/util');
 
 buster.testCase("subscribe extension", {
   'it should pass through messages on non-subscribe channel': function () {

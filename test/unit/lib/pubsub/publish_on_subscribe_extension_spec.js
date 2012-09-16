@@ -4,8 +4,7 @@ var buster = require('buster')
   , extension
   , message;
 
-
-extension = require('../../../pubsub/publish_on_subscribe_extension')({
+extension = require('../../../../lib/pubsub/publish_on_subscribe_extension')({
   pubsub: pubsubStub,
   storage: storageStub
 });

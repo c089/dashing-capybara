@@ -1,4 +1,4 @@
-var util = require('../../../pubsub/util');
+var util = require('../../../lib/pubsub/util');
 module.exports = function () {
   this.World = require('../support/world.js').World;
 
