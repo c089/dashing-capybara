@@ -51,6 +51,7 @@ if (!exports.storage.exists('index')) {
 app.get ('/', routes.index);
 app.all ('/data/*',     dataMiddleware.convertSingleObjectToArray);
 app.all ('/data/*',     dataMiddleware.addMissingTimestamps);
+app.all ('/data/*',     dataMiddleware.validate);
 app.post('/data',       dataController.create);
 app.post('/data/:id',   dataController.post_id);
 app.put ('/data/:id',   dataController.put_id);
