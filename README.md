@@ -13,9 +13,9 @@ updates of that data instantly.
 
 ## Getting started
 
-* grab dependencies: npm install
-* run the server: node app
-* open http://localhost:3000/ and see the example
+* git clone git://github.com/c089/dashing-capybara.git
+* npm install && npm start
+* open [http://localhost:3000](http://localhost:3000) and see the example
 
 ## Architecture
 

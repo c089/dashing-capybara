@@ -20,8 +20,8 @@
   ],
 
   "scripts": {
-    "start": "node app",
-    "test": "buster-test && cucumber.js test/features"
+    "start": "grunt && node app",
+    "test": "grunt && buster-test && cucumber.js test/features"
   },
 
   "engines": {
@@ -31,6 +31,7 @@
   "dependencies": {
     "express": "3.0.x",
     "faye": "0.8.x",
+    "grunt": "0.3.x",
     "jade": "0.27.x",
     "node-uuid": "1.3.x",
     "underscore": "1.3.x",

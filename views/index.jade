@@ -23,8 +23,7 @@ block content
     ul#exampleDataList
 
   script
-    var client = new Faye.Client('#{baseUrl}/faye')
-      , appendValue = function(value) {
+    var appendValue = function(value) {
           var li = document.createElement('li');
           li.appendChild(document.createTextNode(value));
           document.getElementById('exampleDataList').appendChild(li);
@@ -40,17 +39,6 @@ block content
           appendValue(data[i].value);
         }
     };
-
-    client.connect(function () {
-      // Connect to private channel to get initial data
-      client.subscribe('/private/' + client.getClientId(), function (data) {
-        if (data.storeId === 'index') {
-          updateValues(data.data);
-        }
-      });
-
-      // Connect to channel to get updates
-      client.subscribe('/data/index', function(data) {
-        updateValues(data.data);
-      });
+    var client = new DashingCapybaraClient('#{baseUrl}', function () {
+      client.subscribe('index', updateValues);
     });

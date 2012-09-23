@@ -1,3 +1,4 @@
 node_modules
 *.swp
 *.swo
+public/javascripts/client.js
