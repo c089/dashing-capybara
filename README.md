@@ -1,11 +1,7 @@
-# Dashing Capybara
-
-[![Build Status][travis.png]][travis]
+# Dashing Capybara [![Build Status][travis.png]][travis]
 
 * _dashing_: spirited, audacious and full of high spirits
 * _capybara_: a rodent that [looks like Rafel Nadal][capys]
-
-## Introduction
 
 Dashing Capybara is a framework for building custom dashboards. It consists of
 a REST API to push data and a Publish/Subscribe API to allow clients to receive
@@ -13,9 +9,12 @@ updates of that data instantly.
 
 ## Getting started
 
-* git clone git://github.com/c089/dashing-capybara.git
-* npm install && npm start
-* open [http://localhost:3000](http://localhost:3000) and see the example
+Run the server, then follow the instructions on [the example page](http://localhost:3000).
+```sh
+git clone git://github.com/c089/dashing-capybara.git && cd dashing-capybara
+npm install && npm start
+```
+
 
 ## Architecture
 
