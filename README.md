@@ -32,7 +32,6 @@ Alpha: The implementation is incomplete and the APIs will change.
 
 ### Roadmap
 
-* browser-compatibility for client
 * validate incoming data (well formatted, maximum size)
 * persistent storage engine based on redis
 * retention rules (clean old values based on timestamp or maximum entries)

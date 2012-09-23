@@ -14,10 +14,17 @@ buster.testCase("DashingCapybaraClient", {
       expect(c._fayeClient).not.toBe(undefined);
       expect(c._fayeClient instanceof Faye.Client).toBe(true);
     },
-    "should subscribe to private channel": function () {
-      this.spy(DashingCapybaraClient.prototype, '_subscribeToPrivateChannel');
-      var c = new DashingCapybaraClient();
-      expect(c._subscribeToPrivateChannel).toHaveBeenCalledOnceWith(undefined);
+    "should subscribe to private channel": function (done) {
+      var _subscribeToPrivateChannelStub = this.stub(
+        DashingCapybaraClient.prototype,
+        '_subscribeToPrivateChannel',
+        function () {}
+      );
+      this.stub(Faye.Client.prototype, 'connect', function (d) { d(); });
+      var c = new DashingCapybaraClient('http://localhost:123', function () {
+        expect(_subscribeToPrivateChannelStub).toHaveBeenCalledOnceWith(undefined);
+        done();
+      });
     }
   },
 
@@ -40,7 +47,7 @@ buster.testCase("DashingCapybaraClient", {
         ;
 
       c.subscribe(storeId, function () {});
-      expect(subscribeSpy).toHaveBeenCalledOnceWith(expectedChannel, c._handleData);
+      expect(subscribeSpy).toHaveBeenCalledOnceWith(expectedChannel);
     }
   },
 
@@ -52,7 +59,7 @@ buster.testCase("DashingCapybaraClient", {
         , expectedChannel = '/private/' + fayeClient.getClientId() //TODO util
         ;
       c._subscribeToPrivateChannel();
-      expect(spy).toHaveBeenCalledOnceWith(expectedChannel, c._handleData);
+      expect(spy).toHaveBeenCalledOnceWith(expectedChannel);
     }
   },
 
