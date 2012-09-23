@@ -44,11 +44,13 @@ block content
     client.connect(function () {
       // Connect to private channel to get initial data
       client.subscribe('/private/' + client.getClientId(), function (data) {
-        updateValues(data);
+        if (data.storeId === 'index') {
+          updateValues(data.data);
+        }
       });
 
       // Connect to channel to get updates
       client.subscribe('/data/index', function(data) {
-        updateValues(data);
+        updateValues(data.data);
       });
     });

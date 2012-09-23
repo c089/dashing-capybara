@@ -45,7 +45,7 @@ module.exports = function () {
     var world = this;
     setTimeout(function () {
       world.messages.length.should.equal(1);
-      world.messages[0][0].should.deep.equal(JSON.parse(data));
+      world.messages[0].should.deep.equal(JSON.parse(data));
       done();
     }, 50);
   });
