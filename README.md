@@ -54,6 +54,9 @@ Alpha: The implementation is incomplete and the APIs will change.
   dashboards without any tech knowledge. While I would love to see a project
   like this built on dashing-capybara, it is currently out of the scope of this
   project - you have to supply the data yourself using the API.
+* [Dashing][dashing] is a full framework to build dashboards and comes with
+  beautiful widgets. However, it does too many things tightly coupled for my
+  taste.
 * [Graphene][graphene] "is a realtime dashboard & graphing toolkit based on D3
   and Backbone". It is tightly coupled to Graphite (dashing-capybara tries to
   decouple from both data providing backends as well as front-end libraries)
@@ -72,3 +75,4 @@ Alpha: The implementation is incomplete and the APIs will change.
 [jslate]: http://jslate.com/
 [travis.png]: https://secure.travis-ci.org/c089/dashing-capybara.png
 [travis]: http://travis-ci.org/c089/dashing-capybara
+[dashing]: http://shopify.github.io/dashing/
