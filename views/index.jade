@@ -3,45 +3,23 @@ extends layout
 block content
   h1 Welcome to #{title}
 
-  p
-    | You can add data to this page by POSTing values to the
-    | "#{exampleStoreName}" store:
-
   div
-    code
-      | curl -X POST
-      | --header 'Content-Type: application/json'
-      | -d '{"value": "hello"}'
-      | #{exampleApiUrl}
+    p Here is an example value for you to play with:
+    span#exampleData
 
-  p Or replace all values with a PUT:
+  p You can update this value by PUTting it to the "#{exampleStoreName}" store:
     div
       code
         | curl -X PUT
-        | --header 'Content-Type: application/json'
-        | -d '[{"value": "hello"}, {"value": "world"}]'
-        | #{exampleApiUrl}
+        |   --header 'Content-Type: application/json'
+        |   -d '[{"value": "50"}]' #{exampleApiUrl}
 
-  div#exampleData
-    ul#exampleDataList
 
   script
-    var appendValue = function(value) {
-          var li = document.createElement('li');
-          li.appendChild(document.createTextNode(value));
-          document.getElementById('exampleDataList').appendChild(li);
-        };
-
-    var updateValues = function(data) {
-        var div = document.getElementById('exampleData')
-          , list = document.getElementById('exampleDataList')
-          , newList = document.createElement('ul');
-        newList.id = 'exampleDataList';
-        div.replaceChild(newList, list);
-        for (var i=0; i < data.length; i+=1) {
-          appendValue(data[i].value);
-        }
+    var updateData = function(data) {
+        var dataElement = document.getElementById('exampleData')
+        dataElement.innerHTML = data[0].value;
     };
     var client = new DashingCapybaraClient('#{baseUrl}', function () {
-      client.subscribe('#{exampleStoreName}', updateValues);
+      client.subscribe('#{exampleStoreName}', updateData);
     });
