@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+#exampleData {
+  font-size: 5em;
+  border: 9px solid #000000;
+  border-radius: 30%;
+  background-color: #505050;
+  color: #FFFFFF;
+}
