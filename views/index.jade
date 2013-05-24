@@ -3,13 +3,16 @@ extends layout
 block content
   h1 Welcome to #{title}
 
-  p You can add data to this page by POSTing values to the "index" store:
-    div
-      code
-        | curl -X POST
-        | --header 'Content-Type: application/json'
-        | -d '{"value": "hello"}'
-        | #{exampleApiUrl}
+  p
+    | You can add data to this page by POSTing values to the
+    | "#{exampleStoreName}" store:
+
+  div
+    code
+      | curl -X POST
+      | --header 'Content-Type: application/json'
+      | -d '{"value": "hello"}'
+      | #{exampleApiUrl}
 
   p Or replace all values with a PUT:
     div
@@ -40,5 +43,5 @@ block content
         }
     };
     var client = new DashingCapybaraClient('#{baseUrl}', function () {
-      client.subscribe('index', updateValues);
+      client.subscribe('#{exampleStoreName}', updateValues);
     });

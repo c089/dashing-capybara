@@ -42,9 +42,10 @@ var dataController = require('./routes/data')({
 });
 
 // Set up example data store for the index page
-if (!exports.storage.exists('index')) {
-    exports.storage.create('index');
-    exports.storage.add('index', {value: 'hello world'});
+var exampleStore = 'example';
+if (!exports.storage.exists(exampleStore)) {
+  exports.storage.create(exampleStore);
+  exports.storage.add(exampleStore, {value: '50'});
 }
 
 // Routing
