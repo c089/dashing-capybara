@@ -3,9 +3,14 @@
 * _dashing_: spirited, audacious and full of high spirits
 * _capybara_: a rodent that [looks like Rafel Nadal][capys]
 
-Dashing Capybara is a framework for building custom dashboards. It consists of
-a REST API to push data and a Publish/Subscribe API to allow clients to receive
-updates of that data instantly.
+Dashing Capybara is a library to make it easy to push JSON data to custom
+views, such as a dashboards or widgets in a browser. It consists of a REST API
+to push data and a Publish/Subscribe API to allow clients to receive updates of
+that data instantly.
+
+Following the UNIX tradition and node.js way of "doing one thing and doing it
+right" it deliberately does _not_ fetch, aggregate or analyze data. All of
+these things should be done elsewhere.
 
 ## Getting started
 
