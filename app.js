@@ -2,7 +2,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , routes = require('./routes')
-  , dataMiddleware = require('./lib/data/middleware');
+  , dataMiddleware = require('./lib/data/middleware')
   ;
 
 var app = express();
