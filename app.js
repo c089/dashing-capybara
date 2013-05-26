@@ -1,11 +1,9 @@
-var express = require('express')
-  , http = require('http')
-  , path = require('path')
-  , routes = require('./routes')
-  , dataMiddleware = require('./lib/data/middleware')
-  ;
-
-var app = express();
+var express = require('express'),
+    http = require('http'),
+    path = require('path'),
+    routes = require('./routes'),
+    dataMiddleware = require('./lib/data/middleware'),
+    app = express();
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -16,45 +14,21 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express['static'](path.join(__dirname, 'public')));
 });
 
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-// HTTPD
-var httpServer = http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-});
-
-// Wiring
-exports.storage = require('./lib/storage/memory');
-
-var faye_pubsub = require('./lib/pubsub/pubsub_faye')({
-  storage: exports.storage,
-  httpServer: httpServer
-})
-
-var dataController = require('./routes/data')({
-  storage: exports.storage,
-  publish: faye_pubsub.publish
-});
-
-// Set up example data store for the index page
-var exampleStore = 'example';
-if (!exports.storage.exists(exampleStore)) {
-  exports.storage.create(exampleStore);
-  exports.storage.add(exampleStore, {value: '50'});
-}
-
-// Routing
-app.get ('/', routes.index);
+module.exports = require('./lib/wiring').wireModules(app);
 
 app.put ('/data/*',     dataMiddleware);
 app.post('/data/*',     dataMiddleware);
 
-app.post('/data',       dataController.create);
-app.post('/data/:id',   dataController.post_id);
-app.put ('/data/:id',   dataController.put_id);
-app.get ('/data/:id',   dataController.get_by_id);
+app.post('/data',       module.exports.dataController.create);
+app.post('/data/:id',   module.exports.dataController.post_id);
+app.put ('/data/:id',   module.exports.dataController.put_id);
+app.get ('/data/:id',   module.exports.dataController.get_by_id);
+
+require('./lib/example').setup(app, module.exports.storage);
