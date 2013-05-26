@@ -43,6 +43,7 @@ Alpha: The implementation is incomplete and the APIs will change.
 * authentication/authorization
 
 ### Cleanups
+* upgrade grunt to 0.4.x
 * consistency: 2 spaces indentation
 * consistency: use camel case instead of underscores for method names
 
