@@ -5,7 +5,10 @@ module.exports = function(grunt) {
         src: ['node_modules/faye/browser/faye-browser-min.js', 'lib/client/index.js'],
         dest: 'public/javascripts/client.js'
       }
+    },
+    lint: {
+      src: ['app.js'],
     }
   });
-  grunt.registerTask('default', 'concat');
+  grunt.registerTask('default', 'lint concat');
 };
