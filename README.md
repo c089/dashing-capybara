@@ -1,5 +1,7 @@
 # Dashing Capybara [![Build Status][travis.png]][travis]
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/c089/dashing-capybara.svg)](https://greenkeeper.io/)
+
 * _dashing_: spirited, audacious and full of high spirits
 * _capybara_: a rodent that [looks like Rafel Nadal][capys]
 
